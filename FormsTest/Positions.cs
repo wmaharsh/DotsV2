@@ -26,6 +26,7 @@ namespace Dotto.Position
 
         public void LogPoints(Positions posObj)
         {
+            Console.WriteLine("Points:");
             foreach(var elem in posObj.dotPositons)
             {
                 Console.WriteLine("({0},{1})", elem.X, elem.Y);
@@ -37,11 +38,11 @@ namespace Dotto.Position
 
         //}
 
-        public static void RenderDotto(Positions posObj, Graphics graphicsObj)
+        public void RenderDotto(Graphics graphicsObj)
         {
-            foreach(var elem in posObj.dotPositons)
+            foreach(var elem in this.dotPositons)
             {
-                graphicsObj.DrawEllipse(Pens.Black, (elem.X - 1), (elem.Y - 1), 2, 2);
+                graphicsObj.DrawEllipse(Pens.BlueViolet, (elem.X), (elem.Y), 6, 6);
             }
         }
     }

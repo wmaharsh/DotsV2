@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tmrAppTimer = new System.Windows.Forms.Timer(this.components);
             this.pnlTool = new System.Windows.Forms.Panel();
+            this.btnLoadImage = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblDimensions = new System.Windows.Forms.Label();
@@ -39,15 +40,11 @@
             this.txtHeight = new System.Windows.Forms.TextBox();
             this.txtWidth = new System.Windows.Forms.TextBox();
             this.pnlPicture = new System.Windows.Forms.Panel();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.pnlPicButtons = new System.Windows.Forms.Panel();
             this.btnSaveImage = new System.Windows.Forms.Button();
-            this.btnLoadImage = new System.Windows.Forms.Button();
             this.pnlTool.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel1.SuspendLayout();
-            this.pnlPicture.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.pnlPicButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,8 +63,20 @@
             this.pnlTool.Controls.Add(this.panel1);
             this.pnlTool.Location = new System.Drawing.Point(12, 12);
             this.pnlTool.Name = "pnlTool";
-            this.pnlTool.Size = new System.Drawing.Size(221, 515);
+            this.pnlTool.Size = new System.Drawing.Size(221, 535);
             this.pnlTool.TabIndex = 0;
+            // 
+            // btnLoadImage
+            // 
+            this.btnLoadImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLoadImage.Location = new System.Drawing.Point(4, 505);
+            this.btnLoadImage.Name = "btnLoadImage";
+            this.btnLoadImage.Size = new System.Drawing.Size(214, 23);
+            this.btnLoadImage.TabIndex = 2;
+            this.btnLoadImage.Text = "Load Image";
+            this.btnLoadImage.UseVisualStyleBackColor = true;
+            this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
             // 
             // trackBar1
             // 
@@ -140,63 +149,38 @@
             this.pnlPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlPicture.Controls.Add(this.pictureBox);
-            this.pnlPicture.Controls.Add(this.pnlPicButtons);
             this.pnlPicture.Location = new System.Drawing.Point(239, 12);
             this.pnlPicture.Name = "pnlPicture";
-            this.pnlPicture.Size = new System.Drawing.Size(521, 515);
+            this.pnlPicture.Size = new System.Drawing.Size(567, 498);
             this.pnlPicture.TabIndex = 1;
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox.Location = new System.Drawing.Point(4, 4);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(511, 475);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox.TabIndex = 1;
-            this.pictureBox.TabStop = false;
             // 
             // pnlPicButtons
             // 
             this.pnlPicButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPicButtons.Controls.Add(this.btnSaveImage);
-            this.pnlPicButtons.Location = new System.Drawing.Point(4, 485);
+            this.pnlPicButtons.Location = new System.Drawing.Point(239, 516);
             this.pnlPicButtons.Name = "pnlPicButtons";
-            this.pnlPicButtons.Size = new System.Drawing.Size(514, 27);
+            this.pnlPicButtons.Size = new System.Drawing.Size(567, 31);
             this.pnlPicButtons.TabIndex = 0;
             // 
             // btnSaveImage
             // 
             this.btnSaveImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveImage.Location = new System.Drawing.Point(436, 3);
+            this.btnSaveImage.Location = new System.Drawing.Point(489, 3);
             this.btnSaveImage.Name = "btnSaveImage";
-            this.btnSaveImage.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveImage.Size = new System.Drawing.Size(75, 27);
             this.btnSaveImage.TabIndex = 0;
             this.btnSaveImage.Text = "Save Image";
             this.btnSaveImage.UseVisualStyleBackColor = true;
-            // 
-            // btnLoadImage
-            // 
-            this.btnLoadImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLoadImage.Location = new System.Drawing.Point(4, 485);
-            this.btnLoadImage.Name = "btnLoadImage";
-            this.btnLoadImage.Size = new System.Drawing.Size(214, 23);
-            this.btnLoadImage.TabIndex = 2;
-            this.btnLoadImage.Text = "Load Image";
-            this.btnLoadImage.UseVisualStyleBackColor = true;
-            this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
             // 
             // GDITestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(772, 546);
+            this.ClientSize = new System.Drawing.Size(818, 566);
+            this.Controls.Add(this.pnlPicButtons);
             this.Controls.Add(this.pnlPicture);
             this.Controls.Add(this.pnlTool);
             this.Name = "GDITestForm";
@@ -207,8 +191,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.pnlPicture.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.pnlPicButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -228,7 +210,6 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Panel pnlPicButtons;
         private System.Windows.Forms.Button btnSaveImage;
-        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button btnLoadImage;
     }
 }
