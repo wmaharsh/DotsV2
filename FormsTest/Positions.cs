@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Dotto.Position
+namespace Dotto.Positions
 {
     internal class Positions
     {
@@ -14,7 +11,6 @@ namespace Dotto.Position
         {
             this.dotPositons = new List<Point> { };
         }
-
         public Positions(List<Point> pointList)
             : this()
         {
@@ -42,7 +38,7 @@ namespace Dotto.Position
         {
             foreach(var elem in this.dotPositons)
             {
-                graphicsObj.DrawEllipse(Pens.BlueViolet, (elem.X), (elem.Y), 6, 6);
+                graphicsObj.FillEllipse(Brushes.BlueViolet, (elem.X), (elem.Y), 20, 20);
             }
         }
     }

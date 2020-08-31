@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using Dotto.Position;
 
 namespace Dotto
 {
@@ -20,17 +18,6 @@ namespace Dotto
         #endregion
 
         Bitmap myBmp;
-
-        private void ClearBitmap(Bitmap bmp)
-        {
-            for (int Xcount = 0; Xcount < bmp.Width; Xcount++)
-            {
-                for (int Ycount = 0; Ycount < bmp.Height; Ycount++)
-                {
-                    bmp.SetPixel(Xcount, Ycount, Color.FromArgb(255, 255, 255, 255));
-                }
-            }
-        }
 
         public GDITestForm()
         {
@@ -77,6 +64,16 @@ namespace Dotto
         }
         #endregion
 
+        private void ClearBitmap(Bitmap bmp)
+        {
+            for (int Xcount = 0; Xcount < bmp.Width; Xcount++)
+            {
+                for (int Ycount = 0; Ycount < bmp.Height; Ycount++)
+                {
+                    bmp.SetPixel(Xcount, Ycount, Color.FromArgb(255, 255, 255, 255));
+                }
+            }
+        }
 
         public static List<Point> GeneratePoints(int xmax, int ymax, int noPoints)
         {
@@ -181,7 +178,7 @@ namespace Dotto
                 g.Clear(Color.FromArgb(255, 255, 255, 255));
                 Pen red = new Pen(Color.FromArgb(255, 255, 0, 0), 5);
                 //g.DrawEllipse(red, 20, 20, 860, 1160);
-                var pos = new Positions(dots);
+                Positions.Positions pos = new Positions.Positions(dots);
                 pos.RenderDotto(g);
             }
 
