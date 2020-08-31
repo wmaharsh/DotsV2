@@ -56,14 +56,6 @@ namespace Dotto
             this.Refresh();
         }
 
-        //public int AssignHeight()
-        //{
-        //    int pic_height = Convert.ToInt32(txtHeight.Text);
-        //    if (pic_height < MIN_HEIGHT || pic_height > MAX_HEIGHT)
-        //    {
-
-        //    }
-        //}
 
         #region//Textbox text limiting
         private void txtWidth_KeyPress(object sender, KeyPressEventArgs e)
@@ -86,57 +78,67 @@ namespace Dotto
         #endregion
 
 
-        public static void GeneratePoints(List<Point> pts)
+        public static List<Point> GeneratePoints(int xmax, int ymax, int noPoints)
         {
-            //foreach(var member in pts)
-            //{
-            //    pts.Remove(member);
-            //}
+            var pts = new List<Point>() { };
+
             var random = new Random();
 
-            for (int xctr = 0; xctr < 10; xctr++)
+            for (int xctr = 0; xctr < noPoints; xctr++)
             {
-                int positionx = random.Next(1, 899);
-                int positiony = random.Next(1, 1199);
+                int positionx = random.Next(0, xmax);
+                int positiony = random.Next(0, ymax);
                 var p = new Point(positionx, positiony);
                 pts.Add(p);
             }
+
+            return pts;
         }
 
         private void btnLoadImage_Click(object sender, EventArgs e)
         {
             int bmpHeight, bmpWidth;
 
-            #region //empty textbox exceptions
+            #region // height and width values to the bitmap
+
+            //Checking if TextBoxes are empty
             if (string.IsNullOrEmpty(txtHeight.Text) || string.IsNullOrEmpty(txtWidth.Text))
             {
-                //Message box
-                MessageBox.Show("Enter dimensions for image please!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            #endregion
-
-            #region //Assigning dimensions to the required bitmap
-
-            int bufferWidth = Convert.ToInt32(txtWidth.Text);
-            int bufferHeight = Convert.ToInt32(txtHeight.Text);
-
-            if (bufferWidth < MIN_WIDTH || bufferWidth > MAX_WIDTH)
-            {
                 bmpWidth = DEFAULT_WIDTH;
-            }
-            else
-            {
-                bmpWidth = bufferWidth;
-            }
-
-            if (bufferHeight < MIN_HEIGHT || bufferHeight > MAX_HEIGHT)
-            {
                 bmpHeight = DEFAULT_HEIGHT;
             }
             else
             {
-                bmpHeight = bufferHeight;
+                int bufferWidth = Convert.ToInt32(txtWidth.Text);
+                int bufferHeight = Convert.ToInt32(txtHeight.Text);
+
+                //width values
+                if (bufferWidth < MIN_WIDTH)
+                {
+                    bmpWidth = MIN_WIDTH;
+                }
+                else if (bufferWidth > MAX_WIDTH)
+                {
+                    bmpWidth = MAX_WIDTH;
+                }
+                else
+                {
+                    bmpWidth = bufferWidth;
+                }
+
+                //height values
+                if (bufferHeight < MIN_HEIGHT)
+                {
+                    bmpHeight = MIN_HEIGHT;
+                }
+                else if(bufferHeight > MAX_HEIGHT)
+                {
+                    bmpHeight = MAX_HEIGHT;
+                }
+                else
+                {
+                    bmpHeight = bufferHeight;
+                }
             }
             #endregion
 
@@ -170,8 +172,7 @@ namespace Dotto
             ClearBitmap(myBmp);
 
             // a list of 10 points generated randomly within the confines of the bitmap
-            List<Point> dots = new List<Point> { };
-            GeneratePoints(dots);
+            List<Point> dots = GeneratePoints(bmpWidth, bmpHeight, 10);
 
             //draws the graphics on the bitmap
             using (Graphics g = Graphics.FromImage(myBmp))
