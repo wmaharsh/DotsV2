@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Dotto.Init
 {
@@ -24,6 +25,6 @@ namespace Dotto.Init
     }
     internal class Initialise
     {
-        //public static 
+        
     }
 }

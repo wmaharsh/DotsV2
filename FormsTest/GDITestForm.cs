@@ -1,9 +1,9 @@
 ﻿using Dotto.Init;
-using Dotto.Positions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Dotto
@@ -192,6 +192,32 @@ namespace Dotto
 
             //display
             picBox.Image = myBmp;
+        }
+
+        private void btnSaveImage_Click(object sender, EventArgs e)
+        {
+            if (!pnlPicture.HasChildren)
+            {
+                MessageBox.Show("Please generate a picture first, thank you!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                Control ctn = GetControlByName("picBox", pnlPicture);
+                //ctn.Image.Save("")
+            }
+
+        }
+        
+        public static Control GetControlByName(string Name, Control container)
+        {
+            foreach(Control c in container.Controls)
+            {
+                if (c.Name == Name)
+                    return c;
+            }
+
+            return null;
         }
     }
 }

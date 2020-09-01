@@ -40,7 +40,7 @@ namespace Dotto.Positions
 
             this.DottoJitter(jitterX, jitterY);
 
-            foreach(var elem in dotPositons)
+            foreach(Point elem in dotPositons)
             {
                 graphicsObj.FillEllipse(Brushes.Black, (elem.X), (elem.Y), 10, 10);
             }
@@ -108,7 +108,7 @@ namespace Dotto.Positions
 
         public void RenderDotto(Graphics graphicsObj)
         {
-            foreach(var elem in dotPositons)
+            foreach(Point elem in dotPositons)
             {
                 graphicsObj.FillEllipse(Brushes.BlueViolet, (elem.X), (elem.Y), 10, 10);
             }

@@ -192,6 +192,7 @@
             this.btnSaveImage.TabIndex = 0;
             this.btnSaveImage.Text = "Save Image";
             this.btnSaveImage.UseVisualStyleBackColor = true;
+            this.btnSaveImage.Click += new System.EventHandler(this.btnSaveImage_Click);
             // 
             // txtColNo
             // 
