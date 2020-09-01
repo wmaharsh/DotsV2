@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dotto.Init;
+using Dotto.Positions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -43,21 +45,12 @@ namespace Dotto
             this.Refresh();
         }
 
-
         #region//Textbox text limiting
-        private void txtWidth_KeyPress(object sender, KeyPressEventArgs e)
+        
+        private void txtNumbersOnly_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // allows only numbers
-            if (!char.IsNumber(e.KeyChar) && e.KeyChar.ToString() != "\b")
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtHeight_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // allows only numbers
-            if (!char.IsNumber(e.KeyChar) && e.KeyChar.ToString() != "\b")
+            //allows only numbers
+            if(!char.IsNumber(e.KeyChar) && e.KeyChar.ToString() != "\b")
             {
                 e.Handled = true;
             }
@@ -94,52 +87,64 @@ namespace Dotto
 
         private void btnLoadImage_Click(object sender, EventArgs e)
         {
-            int bmpHeight, bmpWidth;
+            BitmapDetails bmpdims;
 
-            #region // height and width values to the bitmap
+            #region // Width, height, column and row values to the bitmap
 
             //Checking if TextBoxes are empty
-            if (string.IsNullOrEmpty(txtHeight.Text) || string.IsNullOrEmpty(txtWidth.Text))
+            if(string.IsNullOrEmpty(txtColNo.Text) || string.IsNullOrEmpty(txtRowNo.Text))
             {
-                bmpWidth = DEFAULT_WIDTH;
-                bmpHeight = DEFAULT_HEIGHT;
+                MessageBox.Show("Please enter the number of rows or columns.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
             else
             {
-                int bufferWidth = Convert.ToInt32(txtWidth.Text);
-                int bufferHeight = Convert.ToInt32(txtHeight.Text);
-
-                //width values
-                if (bufferWidth < MIN_WIDTH)
+                if (string.IsNullOrEmpty(txtHeight.Text) || string.IsNullOrEmpty(txtWidth.Text))
                 {
-                    bmpWidth = MIN_WIDTH;
-                }
-                else if (bufferWidth > MAX_WIDTH)
-                {
-                    bmpWidth = MAX_WIDTH;
+                    bmpdims.Width = DEFAULT_WIDTH;
+                    bmpdims.Height = DEFAULT_HEIGHT;
                 }
                 else
                 {
-                    bmpWidth = bufferWidth;
+                    int bufferWidth = Convert.ToInt32(txtWidth.Text);
+                    int bufferHeight = Convert.ToInt32(txtHeight.Text);
+
+                    //width values
+                    if (bufferWidth < MIN_WIDTH)
+                    {
+                        bmpdims.Width = MIN_WIDTH;
+                    }
+                    else if (bufferWidth > MAX_WIDTH)
+                    {
+                        bmpdims.Width = MAX_WIDTH;
+                    }
+                    else
+                    {
+                        bmpdims.Width = bufferWidth;
+                    }
+
+                    //height values
+                    if (bufferHeight < MIN_HEIGHT)
+                    {
+                        bmpdims.Height = MIN_HEIGHT;
+                    }
+                    else if (bufferHeight > MAX_HEIGHT)
+                    {
+                        bmpdims.Height = MAX_HEIGHT;
+                    }
+                    else
+                    {
+                        bmpdims.Height = bufferHeight;
+                    }
                 }
 
-                //height values
-                if (bufferHeight < MIN_HEIGHT)
-                {
-                    bmpHeight = MIN_HEIGHT;
-                }
-                else if(bufferHeight > MAX_HEIGHT)
-                {
-                    bmpHeight = MAX_HEIGHT;
-                }
-                else
-                {
-                    bmpHeight = bufferHeight;
-                }
+                bmpdims.ColNumber = Convert.ToInt32(txtColNo.Text);
+                bmpdims.RowNumber = Convert.ToInt32(txtRowNo.Text);
             }
+
             #endregion
 
-            myBmp = new Bitmap(bmpWidth, bmpHeight, PixelFormat.Format32bppArgb);
+            myBmp = new Bitmap(bmpdims.Width, bmpdims.Height, PixelFormat.Format32bppArgb);
 
             #region//Disposes previously generated picturebox
             if (pnlPicture.HasChildren)
@@ -169,17 +174,20 @@ namespace Dotto
             ClearBitmap(myBmp);
 
             // a list of 10 points generated randomly within the confines of the bitmap
-            List<Point> dots = GeneratePoints(bmpWidth, bmpHeight, 10);
+            //List<Point> dots = GeneratePoints(bmpWidth, bmpHeight, 10);
 
             //draws the graphics on the bitmap
             using (Graphics g = Graphics.FromImage(myBmp))
             {
                 //ClearBitmap(myBmp);
+
                 g.Clear(Color.FromArgb(255, 255, 255, 255));
-                Pen red = new Pen(Color.FromArgb(255, 255, 0, 0), 5);
+
+                Positions.Positions pos = new Positions.Positions();
+                pos.DottoPositionRender(bmpdims, g, trackBarHJitter.Value, trackBarVjitter.Value);
                 //g.DrawEllipse(red, 20, 20, 860, 1160);
-                Positions.Positions pos = new Positions.Positions(dots);
-                pos.RenderDotto(g);
+                //Positions.Positions pos = new Positions.Positions(dots);
+                //pos.RenderDotto(g);
             }
 
             //display

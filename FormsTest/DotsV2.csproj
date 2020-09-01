@@ -83,6 +83,7 @@
     <Compile Include="GDITestForm.Designer.cs">
       <DependentUpon>GDITestForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Initialise.cs" />
     <Compile Include="Positions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

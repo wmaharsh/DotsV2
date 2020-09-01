@@ -32,7 +32,7 @@
             this.tmrAppTimer = new System.Windows.Forms.Timer(this.components);
             this.pnlTool = new System.Windows.Forms.Panel();
             this.btnLoadImage = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBarHJitter = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblDimensions = new System.Windows.Forms.Label();
             this.lblHeight = new System.Windows.Forms.Label();
@@ -42,10 +42,18 @@
             this.pnlPicture = new System.Windows.Forms.Panel();
             this.pnlPicButtons = new System.Windows.Forms.Panel();
             this.btnSaveImage = new System.Windows.Forms.Button();
+            this.txtColNo = new System.Windows.Forms.TextBox();
+            this.txtRowNo = new System.Windows.Forms.TextBox();
+            this.lblColNo = new System.Windows.Forms.Label();
+            this.lblRowNo = new System.Windows.Forms.Label();
+            this.lblJitterX = new System.Windows.Forms.Label();
+            this.trackBarVjitter = new System.Windows.Forms.TrackBar();
+            this.lblJitterY = new System.Windows.Forms.Label();
             this.pnlTool.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarHJitter)).BeginInit();
             this.panel1.SuspendLayout();
             this.pnlPicButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVjitter)).BeginInit();
             this.SuspendLayout();
             // 
             // tmrAppTimer
@@ -58,8 +66,11 @@
             // 
             this.pnlTool.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.pnlTool.Controls.Add(this.lblJitterY);
+            this.pnlTool.Controls.Add(this.lblJitterX);
             this.pnlTool.Controls.Add(this.btnLoadImage);
-            this.pnlTool.Controls.Add(this.trackBar1);
+            this.pnlTool.Controls.Add(this.trackBarVjitter);
+            this.pnlTool.Controls.Add(this.trackBarHJitter);
             this.pnlTool.Controls.Add(this.panel1);
             this.pnlTool.Location = new System.Drawing.Point(12, 12);
             this.pnlTool.Name = "pnlTool";
@@ -78,25 +89,32 @@
             this.btnLoadImage.UseVisualStyleBackColor = true;
             this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
             // 
-            // trackBar1
+            // trackBarHJitter
             // 
-            this.trackBar1.Location = new System.Drawing.Point(18, 140);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(186, 45);
-            this.trackBar1.TabIndex = 1;
+            this.trackBarHJitter.Location = new System.Drawing.Point(18, 203);
+            this.trackBarHJitter.Maximum = 30;
+            this.trackBarHJitter.Name = "trackBarHJitter";
+            this.trackBarHJitter.Size = new System.Drawing.Size(186, 45);
+            this.trackBarHJitter.SmallChange = 2;
+            this.trackBarHJitter.TabIndex = 1;
+            this.trackBarHJitter.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.lblDimensions);
+            this.panel1.Controls.Add(this.lblRowNo);
+            this.panel1.Controls.Add(this.lblColNo);
             this.panel1.Controls.Add(this.lblHeight);
+            this.panel1.Controls.Add(this.txtRowNo);
             this.panel1.Controls.Add(this.lblWidth);
+            this.panel1.Controls.Add(this.txtColNo);
             this.panel1.Controls.Add(this.txtHeight);
             this.panel1.Controls.Add(this.txtWidth);
             this.panel1.Location = new System.Drawing.Point(4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(214, 90);
+            this.panel1.Size = new System.Drawing.Size(214, 154);
             this.panel1.TabIndex = 0;
             // 
             // lblDimensions
@@ -133,7 +151,7 @@
             this.txtHeight.Size = new System.Drawing.Size(100, 20);
             this.txtHeight.TabIndex = 0;
             this.txtHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHeight_KeyPress);
+            this.txtHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumbersOnly_KeyPress);
             // 
             // txtWidth
             // 
@@ -142,7 +160,7 @@
             this.txtWidth.Size = new System.Drawing.Size(100, 20);
             this.txtWidth.TabIndex = 0;
             this.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtWidth_KeyPress);
+            this.txtWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumbersOnly_KeyPress);
             // 
             // pnlPicture
             // 
@@ -175,6 +193,71 @@
             this.btnSaveImage.Text = "Save Image";
             this.btnSaveImage.UseVisualStyleBackColor = true;
             // 
+            // txtColNo
+            // 
+            this.txtColNo.Location = new System.Drawing.Point(100, 95);
+            this.txtColNo.Name = "txtColNo";
+            this.txtColNo.Size = new System.Drawing.Size(100, 20);
+            this.txtColNo.TabIndex = 0;
+            this.txtColNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtColNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumbersOnly_KeyPress);
+            // 
+            // txtRowNo
+            // 
+            this.txtRowNo.Location = new System.Drawing.Point(100, 121);
+            this.txtRowNo.Name = "txtRowNo";
+            this.txtRowNo.Size = new System.Drawing.Size(100, 20);
+            this.txtRowNo.TabIndex = 0;
+            this.txtRowNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRowNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumbersOnly_KeyPress);
+            // 
+            // lblColNo
+            // 
+            this.lblColNo.AutoSize = true;
+            this.lblColNo.Location = new System.Drawing.Point(11, 98);
+            this.lblColNo.Name = "lblColNo";
+            this.lblColNo.Size = new System.Drawing.Size(79, 13);
+            this.lblColNo.TabIndex = 1;
+            this.lblColNo.Text = "No. of Columns";
+            // 
+            // lblRowNo
+            // 
+            this.lblRowNo.AutoSize = true;
+            this.lblRowNo.Location = new System.Drawing.Point(11, 124);
+            this.lblRowNo.Name = "lblRowNo";
+            this.lblRowNo.Size = new System.Drawing.Size(66, 13);
+            this.lblRowNo.TabIndex = 1;
+            this.lblRowNo.Text = "No. of Rows";
+            // 
+            // lblJitterX
+            // 
+            this.lblJitterX.AutoSize = true;
+            this.lblJitterX.Location = new System.Drawing.Point(15, 177);
+            this.lblJitterX.Name = "lblJitterX";
+            this.lblJitterX.Size = new System.Drawing.Size(76, 13);
+            this.lblJitterX.TabIndex = 3;
+            this.lblJitterX.Text = "Horizontal jitter";
+            // 
+            // trackBarVjitter
+            // 
+            this.trackBarVjitter.Cursor = System.Windows.Forms.Cursors.Default;
+            this.trackBarVjitter.Location = new System.Drawing.Point(18, 267);
+            this.trackBarVjitter.Maximum = 30;
+            this.trackBarVjitter.Name = "trackBarVjitter";
+            this.trackBarVjitter.Size = new System.Drawing.Size(186, 45);
+            this.trackBarVjitter.SmallChange = 2;
+            this.trackBarVjitter.TabIndex = 1;
+            this.trackBarVjitter.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            // 
+            // lblJitterY
+            // 
+            this.lblJitterY.AutoSize = true;
+            this.lblJitterY.Location = new System.Drawing.Point(15, 241);
+            this.lblJitterY.Name = "lblJitterY";
+            this.lblJitterY.Size = new System.Drawing.Size(64, 13);
+            this.lblJitterY.TabIndex = 3;
+            this.lblJitterY.Text = "Vertical jitter";
+            // 
             // GDITestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,10 +271,11 @@
             this.Load += new System.EventHandler(this.GDITestForm_Load);
             this.pnlTool.ResumeLayout(false);
             this.pnlTool.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarHJitter)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.pnlPicButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarVjitter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -207,10 +291,17 @@
         private System.Windows.Forms.TextBox txtHeight;
         private System.Windows.Forms.TextBox txtWidth;
         private System.Windows.Forms.Panel pnlPicture;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBarHJitter;
         private System.Windows.Forms.Panel pnlPicButtons;
         private System.Windows.Forms.Button btnSaveImage;
         private System.Windows.Forms.Button btnLoadImage;
+        private System.Windows.Forms.Label lblRowNo;
+        private System.Windows.Forms.Label lblColNo;
+        private System.Windows.Forms.TextBox txtRowNo;
+        private System.Windows.Forms.TextBox txtColNo;
+        private System.Windows.Forms.Label lblJitterY;
+        private System.Windows.Forms.Label lblJitterX;
+        private System.Windows.Forms.TrackBar trackBarVjitter;
     }
 }
 
