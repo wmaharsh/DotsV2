@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Dotto
@@ -204,7 +204,23 @@ namespace Dotto
             else
             {
                 Control ctn = GetControlByName("picBox", pnlPicture);
-                //ctn.Image.Save("")
+
+                String filename_initial = @"E:\\TestImages\\VisualStudio\\DotS\\test.jpg";
+                String filename_current = filename_initial;
+                int count = 0;
+
+                // prevents duplicate overwrite
+                while (File.Exists(filename_current))
+                {
+                    count++;
+                    filename_current = Path.GetDirectoryName(filename_initial)
+                        + Path.DirectorySeparatorChar
+                        + Path.GetFileNameWithoutExtension(filename_initial)
+                        + count.ToString()
+                        + Path.GetExtension(filename_initial);
+                }
+
+                ((PictureBox)ctn).Image.Save(filename_current);
             }
 
         }
