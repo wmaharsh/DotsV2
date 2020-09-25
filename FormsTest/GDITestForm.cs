@@ -173,67 +173,93 @@ namespace Dotto
             //Makes the bitmap empty with white background
             ClearBitmap(myBmp);
 
-            // a list of 10 points generated randomly within the confines of the bitmap
-            //List<Point> dots = GeneratePoints(bmpWidth, bmpHeight, 10);
+            Random bgrand = new Random();
+            Random fgrand = new Random();
 
+            ColorData bgimgcolor = Initialise.RandoColor(bgrand);
+            
             //draws the graphics on the bitmap
             using (Graphics g = Graphics.FromImage(myBmp))
             {
-                //ClearBitmap(myBmp);
+                ClearBitmap(myBmp);
 
-                g.Clear(Color.FromArgb(255, 255, 255, 255));
+                //g.Clear(Color.FromArgb(255, 255, 255, 255));
+                g.Clear(Color.FromArgb(255, bgimgcolor.rud, bgimgcolor.grn, bgimgcolor.blu));
+
+                //Initialise.fillBackground(bmpdims, g, bgimgcolor);
 
                 Positions.Positions pos = new Positions.Positions();
-                pos.DottoPositionRender(bmpdims, g, trackBarHJitter.Value, trackBarVjitter.Value);
-                //g.DrawEllipse(red, 20, 20, 860, 1160);
-                //Positions.Positions pos = new Positions.Positions(dots);
-                //pos.RenderDotto(g);
+                pos.DottoPositionRender(bmpdims, g, trackBarHJitter.Value, trackBarVjitter.Value, fgrand, false);
+                //g.FillEllipse(Brushes.Black, 20, 20, 860, 1160);
+                                
             }
 
             //display
             picBox.Image = myBmp;
-        }
 
-        private void btnSaveImage_Click(object sender, EventArgs e)
-        {
-            if (!pnlPicture.HasChildren)
+
+            //Saving the image
+            String filename_initial = @"D:\\TestImages\\VisualStudio\\DotS\\test.jpg";
+            String filename_current = filename_initial;
+            int count = 0;
+
+            //prevents duplicate overwrite
+            while(File.Exists(filename_current))
             {
-                MessageBox.Show("Please generate a picture first, thank you!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            else
-            {
-                Control ctn = GetControlByName("picBox", pnlPicture);
-
-                String filename_initial = @"E:\\TestImages\\VisualStudio\\DotS\\test.jpg";
-                String filename_current = filename_initial;
-                int count = 0;
-
-                // prevents duplicate overwrite
-                while (File.Exists(filename_current))
-                {
-                    count++;
-                    filename_current = Path.GetDirectoryName(filename_initial)
-                        + Path.DirectorySeparatorChar
-                        + Path.GetFileNameWithoutExtension(filename_initial)
-                        + count.ToString()
-                        + Path.GetExtension(filename_initial);
-                }
-
-                ((PictureBox)ctn).Image.Save(filename_current);
+                count++;
+                filename_current = Path.GetDirectoryName(filename_initial) 
+                                    + Path.DirectorySeparatorChar 
+                                    + Path.GetFileNameWithoutExtension(filename_initial)
+                                    + count.ToString()
+                                    + Path.GetExtension(filename_initial);
             }
 
-        }
-        
-        public static Control GetControlByName(string Name, Control container)
-        {
-            foreach(Control c in container.Controls)
-            {
-                if (c.Name == Name)
-                    return c;
-            }
+            picBox.Image.Save(filename_current);
 
-            return null;
         }
+
+        #region //deprecated save button
+        //private void btnSaveImage_Click(object sender, EventArgs e)
+        //{
+        //    if (!pnlPicture.HasChildren)
+        //    {
+        //        MessageBox.Show("Please generate a picture first, thank you!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        Control ctn = GetControlByName("picBox", pnlPicture);
+
+        //        String filename_initial = @"D:\\TestImages\\VisualStudio\\DotS\\test.jpg";
+        //        String filename_current = filename_initial;
+        //        int count = 0;
+
+        //        // prevents duplicate overwrite
+        //        while (File.Exists(filename_current))
+        //        {
+        //            count++;
+        //            filename_current = Path.GetDirectoryName(filename_initial)
+        //                + Path.DirectorySeparatorChar
+        //                + Path.GetFileNameWithoutExtension(filename_initial)
+        //                + count.ToString()
+        //                + Path.GetExtension(filename_initial);
+        //        }
+
+        //        ((PictureBox)ctn).Image.Save(filename_current);
+        //    }
+
+        //}
+
+        //public static Control GetControlByName(string Name, Control container)
+        //{
+        //    foreach(Control c in container.Controls)
+        //    {
+        //        if (c.Name == Name)
+        //            return c;
+        //    }
+
+        //    return null;
+        //}
+        #endregion
     }
 }

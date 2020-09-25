@@ -31,7 +31,7 @@ namespace Dotto.Positions
             }
         }
 
-        public void DottoPositionRender(BitmapDetails detailsBmp, Graphics graphicsObj, int jitterX, int jitterY, bool isSymmetrical = false)
+        public void DottoPositionRender(BitmapDetails detailsBmp, Graphics graphicsObj, int jitterX, int jitterY, Random fgrandom, bool isSymmetrical = false)
         {
             //Clearing all points beforehand to avoid extra point artefacts.
             this.dotPositons.Clear();
@@ -40,9 +40,13 @@ namespace Dotto.Positions
 
             this.DottoJitter(jitterX, jitterY);
 
+            ColorData bgdata = Initialise.RandoColor(fgrandom);
+
+            SolidBrush fgbrush = new SolidBrush(Color.FromArgb(255, bgdata.rud, bgdata.grn, bgdata.blu));
+
             foreach(Point elem in dotPositons)
             {
-                graphicsObj.FillEllipse(Brushes.Black, (elem.X), (elem.Y), 10, 10);
+                graphicsObj.FillEllipse(brush: fgbrush, elem.X, elem.Y, 15, 15);
             }
         }
 
